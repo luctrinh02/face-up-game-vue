@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="icon" href="square-blocks-outline_318-46495.avif" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .aspect{
+            aspect-ratio: 1/1;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div class="container">
+            <div class="row d-flex justify-content-center mt-4" v-if="showAgain">
+                <div class="col-5"></div>
+                <div class="col-2">
+                    <button class="btn btn-info" @click="newGame()">
+                        Chơi lại
+                    </button>
+                </div>
+                <div class="col-5"></div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-4 text-center">
+                    <span class="fw-bolder fs-3 text-primary">
+                        Điểm cao nhất: {{maxPoint}}
+                    </span>
+                </div>
+                <div class="col-4 text-center">
+                    <span class="fw-bolder fs-3" :class="{'text-danger blink':minutes==0&&seconds<=10}">
+                        {{getMinutes}}:{{getSeconds}}
+                    </span>
+                </div>
+                <div class="col-4 text-center">
+                    <span class="text-success fs-3 fw-bolder">
+                        Điểm của bạn: {{nowPoint}}
+                    </span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="text-center mt-2" :class="getColClass" v-for="(b,index) in buttonMap">
+                    <button class="btn btn-outline-dark form-control aspect" :class="{'btn btn-primary':b.isDisable}" :disabled="(b.isFaceUp && b.isDisable)||disableAll" @click="buttonClick(index)">
+                        <h3 v-if="b.isFaceUp" :class="{'text-danger':!b.isDisable}">
+                            {{b.value}}
+                        </h3>
+                    </button>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
